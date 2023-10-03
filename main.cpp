@@ -1,3 +1,4 @@
+//My name is James Cangelosi and I certify that this program is my work and my work only
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -21,33 +22,34 @@ int main() {
 
     string filetype;
     getline(file, filetype);
+    fout << filetype << endl;
     // read the comment
     string comment;
     getline(file, comment);
+    if(comment[0] == '#'){
+        getline(file, comment);
+    }
+    stringstream ss(comment);
 
     int width, height, maxValue;
-    file >> width >> height >> maxValue;
+    ss >> width >> height;
+
+    file >> maxValue;
+
+    fout << comment << endl;
+    fout << maxValue<<endl;
 
     for(int l=0; l<height; l++){
         for(int c=0; c<width; c++){
             int pix;
             file >> pix;
-            // here you have to work more
             pix = maxValue - pix;
+            fout << pix << " ";
         }
     }
 
-    // Read the contents of the file into a stringstream
-    stringstream ss;
-    ss << file.rdbuf(); // read the whole file buffer and stores it into a string stream
-
     // Close the file
     file.close();
-
-    // Convert the stringstream into a string
-    string contents = ss.str();
-
-    cout << contents << endl; // prints the whole file at once
 
     return 0;
 }
